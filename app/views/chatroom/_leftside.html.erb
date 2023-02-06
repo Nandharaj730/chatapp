@@ -1,0 +1,50 @@
+<div class = 'col-sm-3 my-3 '>
+    <div class="d-grid gap-2 mb-2 d-md-block ">
+        <button class="user-btn btn btn-primary col-5 disabled" onclick = 'user_button()' type="button">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            Friends
+        </button>
+        <button class="group-btn btn btn-primary col-5" onclick = 'group_button()' type="button">
+            <i class="fa fa-user-plus" aria-hidden="true"></i>
+            Create
+        </button>
+    </div>
+    <div>
+        <div class="card" id = 'user-list1'>
+            <div class="card-header">
+                <b>Friends</b>
+            </div>
+            <ul class="list-group list-group-flush">
+                <% rooms = RoomUserMatch.where(user_id: session[:user_id] ) %>
+                <% if rooms.nil? == false%>
+                    <% rooms.each do |u| %>
+                    <a href = '/rooms/<%= u.room_id %>' > <li class="list-group-item"> <%=  u.room.room_name if u.room   %> </li></a>
+                    <% end %>
+                <% end %>
+            </ul>
+        </div>
+        <div class="card" id = 'group-list'>
+            <div class="card-header">
+                <b>Create Group</b>
+            </div>
+            <form class = 'form' method = "POST" action = "creategroup" >
+                 <input type='hidden' name = 'authenticity_token' value ="<%= form_authenticity_token %>">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Group Name</label>
+                    <input type="text" class="form-control" name = "team_name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Group Name" required>
+                </div><br>
+                <label for="exampleInputEmail1">Add Partner</label>
+                <div class="form-group">
+                    <select class="form-select" name ="user_id" aria-label="Default select example" required>
+                        <option selected>Open this select menu</option>
+                        <% user = User.where.not(id: session[:user_id]) %>
+                        <% user.each do |u|%>
+                            <option value=<%= u.id %>> <%= u.username %> </option>
+                        <% end %>
+                    </select><br>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

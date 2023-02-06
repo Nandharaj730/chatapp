@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <style> 
+      #group-list{
+        display : none;
+      }
+      .field{
+        width: 100%;
+      }
+      #message_context{
+          width : 100%;
+      }
+    </style>
+    <script>
+
+      function group_button(){
+        document.getElementsByClassName('group-btn')[0].classList.add('disabled');
+        document.getElementsByClassName('user-btn')[0].classList.remove('disabled');
+        document.getElementById('group-list').style.display = 'block';
+        document.getElementById('user-list1').style.display = 'none';
+      }
+      function user_button(){
+        document.getElementsByClassName('user-btn')[0].classList.add('disabled');
+        document.getElementsByClassName('group-btn')[0].classList.remove('disabled');
+        document.getElementById('group-list').style.display = 'none';
+        document.getElementById('user-list1').style.display = 'block';
+      }
+    </script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>    
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+   <%= javascript_pack_tag 'message_submit', 'data-turbolinks-track': 'reload' %>
+
+  </head>
+  <body>
+    <div class="container my-3 bg-info rounded shadow">
+          <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
+            <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+              <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+            </a>
+
+            <ul class="nav col-sm-12 col-md-auto mb-2 justify-content-center mb-md-0">
+              <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
+              <li><a href="#" class="nav-link px-2 link-dark">One-One</a></li>
+              <li><a href="#" class="nav-link px-2 link-dark">Groups</a></li>
+              <li><a href="#" class="nav-link px-2 link-dark">Contact</a></li>
+              <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+            </ul>
+
+            <div class="col-sm-3 text-end">
+            <button  class = "btn btn-primary">
+              <%= link_to session[:user_name] , '/logout' , method: :delete , class: "text-light"  %> 
+              <i class="bi bi-box-arrow-right"></i>
+            </button>
+            </div>
+          </header>
+    </div>
+    <div class = 'container' >
+        <div class = 'row justify-content-center mx-2' id= 'user-list' >
+            <%= render 'chatroom/leftside' %>
+            <%= render 'chatroom/chatbox' %>
+            <%= render 'chatroom/rightside' %>
+        </div>
+    </div>
+
+  
+  </body>
+</html>

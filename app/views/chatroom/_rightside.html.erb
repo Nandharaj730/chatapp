@@ -1,0 +1,37 @@
+<div class = 'col-sm-3 my-3'>
+    <div class="card" id = 'card1'>
+        <div class="card-header">
+            <b>[ <%= @room.id if @room %> ]  <%= @room.room_name if @room %> </b>
+        </div>
+        <ul class="list-group list-group-flush">
+            <% if @room %>
+                <% users = RoomUserMatch.where(room_id: @room.id ) %>
+                <% users.each do |u| %>
+                <li class="list-group-item"><%= u.user.username %> </li>
+                <% end %>
+            <% end %>
+        </ul>
+    </div>
+
+     <div class="card mt-4" id ='card2'>
+        <div class="card-header">
+            <b> Add Others </b>
+        </div>
+        <form class = 'form' method = "POST" action = "/addgroup" >
+             <input type='hidden' name = 'authenticity_token' value ="<%= form_authenticity_token %>">    
+            <ul class="list-group list-group-flush">
+                <% users = User.all %>
+                <% users.each do |user| %>
+                    <% if user.nil? == false && @room.nil? == false %>
+                        <% r = RoomUserMatch.find_by(user_id: user.id , room_id: @room.id) %>
+                        <% if r.nil? %>
+                            <input type = 'number' hidden name = 'user_id' value = '<%= user.id %>' >
+                            <input type = 'number' hidden name = 'room_id' value = '<%= @room.id %>' >
+                            <button type= 'submit' style ='background:transparent;border:none;'><li  class="list-group-item"><%= user.username %> </li></button>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            </ul>
+        </form>
+    </div>
+</div>

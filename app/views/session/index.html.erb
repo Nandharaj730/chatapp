@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!-- JQuery -->
+    <script>
+      function setup(){
+          document.getElementById('create-page').style.display = "none";
+      }
+      function loginButton(){
+          document.getElementById('create-page').style.display = "none";
+          document.getElementById('login-page').style.display = "block";
+      }
+      function createButton(){
+          document.getElementById('login-page').style.display = "none";
+          document.getElementById('create-page').style.display = "block";
+      }
+    </script>
+  </head>
+  <body onload = "setup()">
+    <div class="container my-5 bg-info rounded shadow">
+          <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
+            <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+              <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+            </a>
+
+            <ul class="nav col-sm-12 col-md-auto mb-2 justify-content-center mb-md-0">
+              <li><a href="" class="nav-link px-2 link-secondary">Home</a></li>
+              <li><a href="" class="nav-link px-2 link-dark">Users</a></li>
+              <li><a href="" class="nav-link px-2 link-dark">Groups</a></li>
+              <li><a href="" class="nav-link px-2 link-dark">Contact</a></li>
+              <li><a href="" class="nav-link px-2 link-dark">About</a></li>
+            </ul>
+
+            <div class="col-sm-3 text-end">
+              <button type="button" onclick = "loginButton()" class="btn btn-outline-primary me-2">Login</button>
+              <button type="button" onclick = "createButton()" class="btn btn-primary">Sign-up</button>
+            </div>
+          </header>
+    </div>
+
+    <div id = "login-page" class = 'container form-container shadow rounded bg-info p-5 col-sm-4'>
+        <form class = 'form' method = 'post' action ='/new' >
+            <input type='hidden' name = 'authenticity_token' value ="<%= form_authenticity_token %>">
+            <div class="form-outline mb-4">
+                <label class="form-label " >Email address</label>
+                <input type="email" id="email_id" name = "login[email]" class="form-control shadow" />
+            </div>
+
+            <div class="form-outline mb-4 ">
+                <label class="form-label" >Password</label>
+                <input type="password" id="email_id" name = 'login[password]' class="form-control shadow" />
+            </div>
+
+            <div class="form-check d-flex justify-content-center mb-4">
+              <a onclick ='createButton()' class="pe-auto nav-link px-2 link-dark">Create new account? </a>       
+            </div>
+            <button type="submit" class="btn btn-primary btn-block mb-4 shadow"> Submit </button>
+        </form>
+    </div>
+
+    <div id = "create-page" class = 'container form-container shadow rounded bg-info p-5 col-sm-4'>
+        <form class = 'form' method = 'post' action ='/create' >
+            <input type='hidden' name = 'authenticity_token' value ="<%= form_authenticity_token %>">
+            <div class="form-outline mb-4">
+                <label class="form-label " >Name</label>
+                <input type="text" id="email_id" name ='user[username]' class="form-control shadow" />
+            </div>
+
+            <div class="form-outline mb-4 ">
+                <label class="form-label" >Email</label>
+                <input type="email" id="email_id" name = 'user[email]' class="form-control shadow" />
+            </div>
+
+            <div class="form-outline mb-4 ">
+                <label class="form-label" >Password</label>
+                <input type="password" id="email_id" name = 'user[password]' class="form-control shadow" />
+            </div>
+
+            <div class="form-check d-flex justify-content-center mb-4">
+                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
+                    <label class="form-check-label" for="form2Example33">
+                    Remember Password
+                    </label>
+                  </div>
+            <button type="submit" class="btn btn-primary btn-block mb-4 shadow"> Submit </button>
+        </form>
+    </div>
+  </body>
+</html>

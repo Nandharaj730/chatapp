@@ -1,0 +1,17 @@
+<%= form_with(model: @message, url:messages_path) do |form| %>
+  <div class ='d-grid gap-2 mb-2 d-md-block ' style = 'display: flex;  justify-content: space-between;'>
+    <b class = 'fw-light'>Type a message ...</b>
+    
+    <div class="form-outline" >
+      <div style = 'float:left;' class = 'col-10'> <%= form.text_field :context , class: 'message_content form-control shadow' %></div>
+    </div>
+
+    <div class="field" >
+      <%= form.hidden_field :room_id, value: @room.id if @room  %>
+    </div>
+
+    <div  class = 'field px-3' >
+      <%= form.submit "Send" , class: 'btn btn-primary'%>
+    </div>
+  </div>
+<% end %>

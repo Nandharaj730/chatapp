@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>App</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.min.js" integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </head>
+
+  <body>
+  
+    <% if flash[:notices] %>
+        <div class="container alert alert-warning alert-dismissible fade show" role="alert">
+          <ul>
+            <% if flash[:notice] %>
+            <%    flash[:notice].each do |msg| %>
+            <li><%=   msg %></li>
+            <%     end %>
+            <% end %>
+          </ul>
+        
+          <button type="button" class="close btn float-right" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+    <% end %> 
+    
+    <% if flash[:success] %>
+      <div class="container alert alert-success alert-dismissible fade show" role="alert">
+        <strong> <%= flash[:success] %> </strong>
+        <button type="button" class="close btn float-right" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <% end %> 
+    
+    <% if flash[:error] %>
+      <div class="container alert alert-danger alert-dismissible fade show" role="alert">
+          <strong> <%= flash[:error] %> </strong>
+          <button type="button" class="close btn float-right" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+    <% end %> 
+         
+    <%= yield %>
+    </body>
+</html>
